@@ -213,15 +213,17 @@
         <label>Tu nombre / área (opcional)</label>
         <textarea id="noteAuthor" style="min-height:38px" placeholder="Ej: Equipo asesoría"></textarea>
         <button class="save-btn" id="saveNote">Guardar nota</button>
-        <div class="hint">Las notas se guardan en este navegador.</div>
+        <div class="hint">Las notas se guardan en Supabase.</div>
       </div>
     </div>
   </div>
 </aside>
 
+  <!-- Supabase SDK (usado solo para notas) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <!-- Datos legisladores -->
   <script src="js/data.js"></script>
-  <!-- Notas locales -->
+  <!-- Notas (Supabase) -->
   <script src="js/notes.js"></script>
   <!-- Lógica de la app -->
   <script src="js/app.js"></script>

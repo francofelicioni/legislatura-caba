@@ -1,62 +1,47 @@
-// ── Persistencia local de notas (sin backend) ──────────────────────────────
-const NOTES_STORAGE_KEY = 'legislatura_caba_notas';
+const SUPABASE_URL = 'https://xhvxwjlmvzcssibthlpp.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhodnh3amxtdnpjc3NpYnRobHBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NTQxMDIsImV4cCI6MjA4OTUzMDEwMn0.6GNiVTwCKnvmPa1H_WcGroQIyvCAhbPuMKf9QU7ww4Q';
 
-function readNotesStore() {
-  try {
-    const raw = localStorage.getItem(NOTES_STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch (error) {
-    console.error('Error leyendo notas locales:', error);
-    return [];
-  }
-}
+let supabaseClient = null;
 
-function writeNotesStore(notes) {
-  try {
-    localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
-    return true;
-  } catch (error) {
-    console.error('Error guardando notas locales:', error);
-    return false;
+function getSupabaseClient() {
+  if (typeof window.supabase === 'undefined') {
+    console.warn('Supabase SDK no cargado');
+    return null;
   }
-}
-
-function createNoteId() {
-  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
-    return crypto.randomUUID();
+  if (!supabaseClient) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
-  return `note_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+  return supabaseClient;
 }
 
 async function cargarNotas(nombreLegislador) {
-  const notes = readNotesStore()
-    .filter((note) => note.legislador === nombreLegislador)
-    .sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-  return notes;
+  const client = getSupabaseClient();
+  if (!client) return [];
+  const { data, error } = await client
+    .from('notas')
+    .select('*')
+    .eq('legislador', nombreLegislador)
+    .order('fecha', { ascending: false });
+  if (error) { console.error('Error cargando notas:', error); return []; }
+  return data || [];
 }
 
 async function guardarNota(nombreLegislador, texto, autor) {
-  const notes = readNotesStore();
-  const newNote = {
-    id: createNoteId(),
-    legislador: nombreLegislador,
-    texto,
-    autor: autor || null,
-    fecha: new Date().toISOString(),
-  };
-
-  notes.push(newNote);
-  const ok = writeNotesStore(notes);
-  return ok ? newNote : null;
+  const client = getSupabaseClient();
+  if (!client) return null;
+  const { data, error } = await client
+    .from('notas')
+    .insert([{ legislador: nombreLegislador, texto, autor: autor || null }])
+    .select()
+    .single();
+  if (error) { console.error('Error guardando nota:', error); return null; }
+  return data;
 }
 
 async function eliminarNota(id) {
-  const notes = readNotesStore();
-  const updated = notes.filter((note) => note.id !== id);
-
-  if (updated.length === notes.length) return false;
-  return writeNotesStore(updated);
+  const client = getSupabaseClient();
+  if (!client) return false;
+  const { error } = await client.from('notas').delete().eq('id', id);
+  if (error) { console.error('Error eliminando nota:', error); return false; }
+  return true;
 }
