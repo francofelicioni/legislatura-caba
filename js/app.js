@@ -182,9 +182,12 @@ async function openPanel(idx) {
   document.getElementById('panelTitle').textContent = leg.nombre;
   const hero = document.getElementById('panelHero');
   if (leg.foto) {
-    hero.innerHTML = `<img src="${leg.foto}" alt="${leg.nombre}" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.parentElement.textContent='${initials(leg.nombre)}'">`;
+    // Use object-fit:contain and center the image to avoid cutting heads; also, increase the area slightly with padding
+    // Set background to political color
+    hero.innerHTML = `<img src="${leg.foto}" alt="${leg.nombre}" style="width:100%;height:100%;object-fit:contain;object-position:center;background:${st.bg};padding:8px;" onerror="this.parentElement.textContent='${initials(leg.nombre)}'">`;
   } else {
     hero.textContent = initials(leg.nombre);
+    hero.style.background = st.bg; // Set background to political color when no photo
   }
   document.getElementById('panelMeta').innerHTML = `
     <span class="chip" style="background:${st.bg};color:${st.color};font-size:.72rem;padding:4px 10px">${leg.bloque}</span>
