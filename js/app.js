@@ -116,7 +116,7 @@ document.querySelectorAll('.nav-tab').forEach(btn => {
 let activeFilter = 'Todos';
 let query = '';
 let activeIdx = -1;
-// Notas gestionadas via Supabase (ver js/supabase.js)
+// Notas gestionadas en localStorage (ver js/notes.js)
 
 const filterBar = document.getElementById('filterBar');
 ['Todos', ...Object.keys(BLOQUES_CFG)].forEach(f => {

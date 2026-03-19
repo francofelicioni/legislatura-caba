@@ -11,35 +11,19 @@ legislatura-caba/
 │   └── styles.css      ← estilos
 ├── js/
 │   ├── data.js         ← datos de los 60 legisladores
-│   ├── supabase.js     ← conexión con base de datos
+│   ├── notes.js        ← notas guardadas en localStorage
 │   └── app.js          ← lógica de la app
 └── README.md
 ```
 
-## Configurar Supabase
+## Notas del equipo
 
-1. Crear proyecto en [supabase.com](https://supabase.com)
-2. Ir a **Settings → API** y copiar:
-   - Project URL
-   - anon public key
-3. Abrir `js/supabase.js` y reemplazar:
-   ```js
-   const SUPABASE_URL = 'TU_SUPABASE_URL';
-   const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY';
-   ```
-4. En Supabase → **SQL Editor** ejecutar:
-   ```sql
-   create table notas (
-     id uuid default gen_random_uuid() primary key,
-     legislador text not null,
-     texto text not null,
-     autor text,
-     fecha timestamp default now()
-   );
-   alter table notas enable row level security;
-   create policy "Lectura pública" on notas for select using (true);
-   create policy "Escritura pública" on notas for insert with check (true);
-   ```
+Las notas se guardan de forma local en el navegador usando `localStorage`.
+Esto significa que:
+
+- no requiere backend ni configuración adicional;
+- cada navegador/dispositivo conserva sus propias notas;
+- si se limpian los datos del navegador, las notas se pierden.
 
 ## Flujo de trabajo
 
