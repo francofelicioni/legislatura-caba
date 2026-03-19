@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legislatura CABA — Directorio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div id="seat-tooltip"></div>
+
+<nav>
+  <div class="nav-logo">LEGISLATURA <small>Ciudad de Buenos Aires</small></div>
+  <button class="nav-tab on" data-page="home">🏛 Inicio</button>
+  <button class="nav-tab" data-page="directorio">👥 Directorio</button>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div class="page on" id="page-home">
+<div class="home">
+
+  <div class="home-hero">
+    <h1>Legislatura de la Ciudad de Buenos Aires</h1>
+    <p>Directorio interno de legisladores · Período 2025–2029 · Uso exclusivo del equipo asesor</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">60</div><div class="lbl">Legisladores</div></div>
+      <div class="hero-stat"><div class="num">8</div><div class="lbl">Bloques</div></div>
+      <div class="hero-stat"><div class="num">7</div><div class="lbl">Autoridades</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Autoridades de la Legislatura</div>
+  <div class="autoridades-grid">
+    <div class="auto-card"><div class="cargo">Presidenta</div><div class="nombre">Clara Muzzio</div></div>
+    <div class="auto-card"><div class="cargo">Vicepresidente 1º</div><div class="nombre">Matías López</div></div>
+    <div class="auto-card"><div class="cargo">Vicepresidente 2º</div><div class="nombre">Juan Modarelli</div></div>
+    <div class="auto-card"><div class="cargo">Vicepresidente 3º</div><div class="nombre">Juan Pablo Arenaza</div></div>
+    <div class="auto-card"><div class="cargo">Secretario Parlamentario</div><div class="nombre">Pablo Schillagi</div></div>
+    <div class="auto-card"><div class="cargo">Secretario Administrativo</div><div class="nombre">Christian Gribaudo</div></div>
+    <div class="auto-card"><div class="cargo">Secretario de Coordinación</div><div class="nombre">Augusto Misch</div></div>
+  </div>
+
+  <!-- RECINTO -->
+  <div class="section-title">Composición del recinto</div>
+  <div class="recinto-wrap">
+    <div class="recinto-title">Hemiciclo · 60 bancas</div>
+    <div class="recinto-sub">Pasá el mouse sobre una banca para ver el bloque · Hacé click en la leyenda para resaltar</div>
+
+    <svg class="recinto-svg" viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg">
+      <!-- Piso del recinto -->
+      <ellipse cx="340" cy="330" rx="295" ry="28" fill="#DBEAFE" opacity=".5"/>
+      <!-- Arcos de fondo (guías) -->
+      <path d="M 95 330 A 245 245 0 0 1 585 330" fill="none" stroke="#BFDBFE" stroke-width="1" stroke-dasharray="4 4"/>
+      <path d="M 125 330 A 215 215 0 0 1 555 330" fill="none" stroke="#BFDBFE" stroke-width=".7" stroke-dasharray="4 4" opacity=".6"/>
+      <path d="M 155 330 A 185 185 0 0 1 525 330" fill="none" stroke="#BFDBFE" stroke-width=".7" stroke-dasharray="4 4" opacity=".5"/>
+      <path d="M 185 330 A 155 155 0 0 1 495 330" fill="none" stroke="#BFDBFE" stroke-width=".7" stroke-dasharray="4 4" opacity=".4"/>
+      <!-- Atril de la presidenta -->
+      <rect x="300" y="336" width="80" height="22" rx="5" fill="#2563EB" opacity=".15"/>
+      <rect x="315" y="330" width="50" height="10" rx="3" fill="#2563EB" opacity=".2"/>
+      <text x="340" y="352" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#1D4ED8" font-weight="600">PRESIDENCIA</text>
+
+      <!-- BANCAS (60 asientos) -->
+      <!-- Fila 1 interna: 12 asientos -->
+      <circle cx="245.0" cy="320.0" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="248.8" cy="293.2" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="260.1" cy="268.6" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="277.8" cy="248.2" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="300.5" cy="233.6" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="326.5" cy="226.0" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="353.5" cy="226.0" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="379.5" cy="233.6" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="402.2" cy="248.2" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="419.9" cy="268.6" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="431.2" cy="293.2" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="435.0" cy="320.0" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <!-- Fila 2: 17 asientos (FxBA 8 + LLA 9) -->
+      <circle cx="205.0" cy="320.0" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="207.6" cy="293.7" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="215.3" cy="268.3" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="227.8" cy="245.0" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="244.5" cy="224.5" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="265.0" cy="207.8" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="288.3" cy="195.3" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="313.7" cy="187.6" r="10" fill="#5BB4E8" stroke="#fff" stroke-width="2" class="seat" data-bloque="Fuerza por Buenos Aires"/>
+      <circle cx="340.0" cy="185.0" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="366.3" cy="187.6" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="391.7" cy="195.3" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="415.0" cy="207.8" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="435.5" cy="224.5" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="452.2" cy="245.0" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="464.7" cy="268.3" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="472.4" cy="293.7" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="475.0" cy="320.0" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <!-- Fila 3: 18 asientos (LLA 5 + VxM 12 + CyD 1) -->
+      <circle cx="165.0" cy="320.0" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="168.0" cy="287.8" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="176.8" cy="256.8" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="191.2" cy="227.9" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="210.7" cy="202.1" r="10" fill="#7C3AED" stroke="#fff" stroke-width="2" class="seat" data-bloque="La Libertad Avanza"/>
+      <circle cx="234.5" cy="180.3" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="262.0" cy="163.3" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="292.1" cy="151.7" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="323.9" cy="145.7" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="356.1" cy="145.7" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="387.9" cy="151.7" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="418.0" cy="163.3" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="445.5" cy="180.3" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="469.3" cy="202.1" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="488.8" cy="227.9" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="503.2" cy="256.8" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="512.0" cy="287.8" r="10" fill="#F59E0B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Vamos por Más"/>
+      <circle cx="515.0" cy="320.0" r="10" fill="#10B981" stroke="#fff" stroke-width="2" class="seat" data-bloque="Confianza y Desarrollo"/>
+      <!-- Fila 4 externa: 13 asientos (CyD 5 + UCR 5 + Monobloques 3) -->
+      <circle cx="125.0" cy="320.0" r="10" fill="#10B981" stroke="#fff" stroke-width="2" class="seat" data-bloque="Confianza y Desarrollo"/>
+      <circle cx="132.3" cy="264.4" r="10" fill="#10B981" stroke="#fff" stroke-width="2" class="seat" data-bloque="Confianza y Desarrollo"/>
+      <circle cx="153.8" cy="212.5" r="10" fill="#10B981" stroke="#fff" stroke-width="2" class="seat" data-bloque="Confianza y Desarrollo"/>
+      <circle cx="188.0" cy="168.0" r="10" fill="#10B981" stroke="#fff" stroke-width="2" class="seat" data-bloque="Confianza y Desarrollo"/>
+      <circle cx="232.5" cy="133.8" r="10" fill="#10B981" stroke="#fff" stroke-width="2" class="seat" data-bloque="Confianza y Desarrollo"/>
+      <circle cx="284.4" cy="112.3" r="10" fill="#EF4444" stroke="#fff" stroke-width="2" class="seat" data-bloque="UCR"/>
+      <circle cx="340.0" cy="105.0" r="10" fill="#EF4444" stroke="#fff" stroke-width="2" class="seat" data-bloque="UCR"/>
+      <circle cx="395.6" cy="112.3" r="10" fill="#EF4444" stroke="#fff" stroke-width="2" class="seat" data-bloque="UCR"/>
+      <circle cx="447.5" cy="133.8" r="10" fill="#EF4444" stroke="#fff" stroke-width="2" class="seat" data-bloque="UCR"/>
+      <circle cx="492.0" cy="168.0" r="10" fill="#EF4444" stroke="#fff" stroke-width="2" class="seat" data-bloque="UCR"/>
+      <circle cx="526.2" cy="212.5" r="10" fill="#9B9B9B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Monobloques (FIT / Rep.)"/>
+      <circle cx="547.7" cy="264.4" r="10" fill="#9B9B9B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Monobloques (FIT / Rep.)"/>
+      <circle cx="555.0" cy="320.0" r="10" fill="#9B9B9B" stroke="#fff" stroke-width="2" class="seat" data-bloque="Monobloques (FIT / Rep.)"/>
+    </svg>
+
+    <!-- Leyenda interactiva -->
+    <div class="recinto-legend" id="leyenda">
+      <div class="legend-item" data-bloque="Fuerza por Buenos Aires">
+        <div class="legend-dot" style="background:#5BB4E8"></div>
+        <span class="legend-label">Fuerza por Buenos Aires</span>
+        <span class="legend-count">20</span>
+      </div>
+      <div class="legend-item" data-bloque="La Libertad Avanza">
+        <div class="legend-dot" style="background:#7C3AED"></div>
+        <span class="legend-label">La Libertad Avanza</span>
+        <span class="legend-count">14</span>
+      </div>
+      <div class="legend-item" data-bloque="Vamos por Más">
+        <div class="legend-dot" style="background:#F59E0B"></div>
+        <span class="legend-label">Vamos por Más</span>
+        <span class="legend-count">12</span>
+      </div>
+      <div class="legend-item" data-bloque="Confianza y Desarrollo">
+        <div class="legend-dot" style="background:#10B981"></div>
+        <span class="legend-label">Confianza y Desarrollo</span>
+        <span class="legend-count">6</span>
+      </div>
+      <div class="legend-item" data-bloque="UCR">
+        <div class="legend-dot" style="background:#EF4444"></div>
+        <span class="legend-label">Ciudadanos Unidos – UCR</span>
+        <span class="legend-count">5</span>
+      </div>
+      <div class="legend-item" data-bloque="Monobloques (FIT / Rep.)">
+        <div class="legend-dot" style="background:#9B9B9B"></div>
+        <span class="legend-label">Monobloques (FIT / Rep.)</span>
+        <span class="legend-count">3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bloques -->
+  <div class="section-title">Composición por bloques</div>
+  <div class="bloques-grid" id="bloquesGrid"></div>
+
+</div>
+</div>
+
+<!-- ══ DIRECTORIO ══ -->
+<div class="page" id="page-directorio">
+  <div class="dir-controls">
+    <div class="search-box">
+      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Buscar por nombre, bloque, temática…" autocomplete="off">
+    </div>
+    <div class="filters" id="filterBar"></div>
+  </div>
+  <div class="subbar">
+    <span><strong>60</strong> legisladores &nbsp;·&nbsp; <strong>8</strong> bloques</span>
+    <span id="resultCount"></span>
+  </div>
+  <div class="grid-wrap" id="gridWrap">
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="panel" id="panel">
+  <div class="panel-top">
+    <div class="panel-title" id="panelTitle"></div>
+    <button class="close-btn" id="closeBtn">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="panel-scroll">
+    <div id="panelHero" class="panel-hero"></div>
+    <div class="panel-meta" id="panelMeta"></div>
+    <div class="panel-body" id="panelBody"></div>
+    <div class="notes-area">
+      <button class="notes-toggle" id="notesToggle">✏️ Agregar nota o actualización</button>
+      <div class="notes-form" id="notesForm">
+        <label>Nota / actualización</label>
+        <textarea id="noteText" placeholder="Ej: cambio de bloque, nuevo referente, proyecto presentado…"></textarea>
+        <label>Tu nombre / área (opcional)</label>
+        <textarea id="noteAuthor" style="min-height:38px" placeholder="Ej: Equipo asesoría"></textarea>
+        <button class="save-btn" id="saveNote">Guardar nota</button>
+        <div class="hint">Las notas se guardan en este navegador.</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- Datos legisladores -->
+  <script src="js/data.js"></script>
+  <!-- Conexión Supabase -->
+  <script src="js/supabase.js"></script>
+  <!-- Lógica de la app -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
