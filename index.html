@@ -13,9 +13,14 @@
 
 <nav>
   <div class="nav-logo">LEGISLATURA <small>Ciudad de Buenos Aires</small></div>
-  <button class="nav-tab on" data-page="home">🏛 Inicio</button>
-  <button class="nav-tab" data-page="directorio">👥 Directorio</button>
-  <button class="nav-tab" data-page="comisiones">📋 Comisiones</button>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-tab on" data-page="home">🏛 Inicio</button>
+    <button class="nav-tab" data-page="directorio">👥 Directorio</button>
+    <button class="nav-tab" data-page="comisiones">📋 Comisiones</button>
+  </div>
 </nav>
 
 <!-- ══ HOME ══ -->

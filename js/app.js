@@ -95,8 +95,30 @@ function switchPage(id) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('on'));
   document.getElementById('page-' + id).classList.add('on');
   document.querySelector(`[data-page="${id}"]`).classList.add('on');
+  closeNavMenu();
   if (id === 'comisiones' && typeof renderComisiones === 'function') renderComisiones();
 }
+
+const navEl = document.querySelector('nav');
+const navBurger = document.getElementById('navBurger');
+
+function closeNavMenu() {
+  if (!navEl || !navBurger) return;
+  navEl.classList.remove('menu-open');
+  navBurger.setAttribute('aria-expanded', 'false');
+}
+
+if (navBurger) {
+  navBurger.addEventListener('click', () => {
+    const open = navEl.classList.toggle('menu-open');
+    navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', e => {
+    if (!navEl.contains(e.target)) closeNavMenu();
+  });
+}
+
 document.querySelectorAll('.nav-tab').forEach(btn => {
   btn.addEventListener('click', () => switchPage(btn.dataset.page));
 });
@@ -178,7 +200,7 @@ async function openPanel(idx) {
   document.getElementById('panelTitle').textContent = leg.nombre;
   const hero = document.getElementById('panelHero');
   if (leg.foto) {
-    hero.innerHTML = `<img src="${leg.foto}" alt="${leg.nombre}" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.parentElement.textContent='${initials(leg.nombre)}'">`;
+    hero.innerHTML = `<img src="${leg.foto}" alt="${leg.nombre}" style="width:100%;height:100%;object-fit:contain;object-position:center;background:#f8fafc" onerror="this.parentElement.textContent='${initials(leg.nombre)}'">`;
   } else {
     hero.textContent = initials(leg.nombre);
   }
