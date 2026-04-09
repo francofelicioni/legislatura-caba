@@ -15,6 +15,7 @@
   <div class="nav-logo">LEGISLATURA <small>Ciudad de Buenos Aires</small></div>
   <button class="nav-tab on" data-page="home">🏛 Inicio</button>
   <button class="nav-tab" data-page="directorio">👥 Directorio</button>
+  <button class="nav-tab" data-page="comisiones">📋 Comisiones</button>
 </nav>
 
 <!-- ══ HOME ══ -->
@@ -190,6 +191,30 @@
   </div>
 </div>
 
+
+<!-- ══ COMISIONES ══ -->
+<div class="page" id="page-comisiones">
+  <div class="subbar">
+    <span><strong>29</strong> comisiones permanentes</span>
+  </div>
+  <div class="com-grid">
+    <div class="com-grid-inner" id="comisiones-grid"></div>
+  </div>
+</div>
+
+<!-- Modal comisión -->
+<div class="com-modal" id="com-modal">
+  <div class="com-modal-top">
+    <div class="com-modal-title" id="com-modal-title">Comisión</div>
+    <button class="close-btn" onclick="cerrarComision()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="com-modal-scroll" id="com-modal-body"></div>
+</div>
+
 <div class="overlay" id="overlay"></div>
 
 <aside class="panel" id="panel">
@@ -213,20 +238,22 @@
         <label>Tu nombre / área (opcional)</label>
         <textarea id="noteAuthor" style="min-height:38px" placeholder="Ej: Equipo asesoría"></textarea>
         <button class="save-btn" id="saveNote">Guardar nota</button>
-        <div class="hint">Las notas se guardan en Supabase.</div>
+        <div class="hint">Las notas se guardan en este navegador.</div>
       </div>
     </div>
   </div>
 </aside>
 
-  <!-- Supabase SDK (usado solo para notas) -->
+  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <!-- Datos legisladores -->
+  <!-- Datos -->
   <script src="js/data.js"></script>
-  <!-- Notas (Supabase) -->
+  <script src="js/comisiones.js"></script>
+  <!-- Supabase notes -->
   <script src="js/notes.js"></script>
-  <!-- Lógica de la app -->
+  <!-- UI -->
   <script src="js/app.js"></script>
+  <script src="js/comisiones_ui.js"></script>
 
 </body>
 </html>

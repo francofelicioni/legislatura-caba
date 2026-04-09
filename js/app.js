@@ -1,5 +1,4 @@
 // ── App principal — Legislatura CABA ──────────────────────────────────────
-// Lógica de UI: grilla, filtros, búsqueda, panel lateral
 
 const BLOQUES_CFG = {
   "Fuerza por Buenos Aires": { color:"#5BB4E8", bg:"#EFF9FF", bancas:20, jefe:"Claudia Neira",         abrev:"FxBSAS" },
@@ -116,7 +115,8 @@ document.querySelectorAll('.nav-tab').forEach(btn => {
 let activeFilter = 'Todos';
 let query = '';
 let activeIdx = -1;
-// Notas gestionadas en localStorage (ver js/notes.js)
+let notes = {};
+try { notes = JSON.parse(localStorage.getItem('caba_notes') || '{}'); } catch(e) {}
 
 const filterBar = document.getElementById('filterBar');
 ['Todos', ...Object.keys(BLOQUES_CFG)].forEach(f => {
@@ -175,19 +175,16 @@ function renderGrid() {
   });
 }
 
-async function openPanel(idx) {
+function openPanel(idx) {
   activeIdx = idx;
   const leg = DATA[idx];
   const st = getBloqueStyle(leg.bloque);
   document.getElementById('panelTitle').textContent = leg.nombre;
   const hero = document.getElementById('panelHero');
   if (leg.foto) {
-    // Use object-fit:contain and center the image to avoid cutting heads; also, increase the area slightly with padding
-    // Set background to political color
-    hero.innerHTML = `<img src="${leg.foto}" alt="${leg.nombre}" style="width:100%;height:100%;object-fit:contain;object-position:center;background:${st.bg};padding:8px;" onerror="this.parentElement.textContent='${initials(leg.nombre)}'">`;
+    hero.innerHTML = `<img src="${leg.foto}" alt="${leg.nombre}" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.parentElement.textContent='${initials(leg.nombre)}'">`;
   } else {
     hero.textContent = initials(leg.nombre);
-    hero.style.background = st.bg; // Set background to political color when no photo
   }
   document.getElementById('panelMeta').innerHTML = `
     <span class="chip" style="background:${st.bg};color:${st.color};font-size:.72rem;padding:4px 10px">${leg.bloque}</span>
@@ -204,18 +201,23 @@ async function openPanel(idx) {
   sec('Redes y comunicación', leg.redes);
   sec('Posibles puntos de acuerdo', leg.acuerdos.filter(a=>a&&a!=='No encontré'), 'green','green');
   sec('Dato extra', leg.extra, 'amber','amber');
-  const myNotes = await cargarNotas(leg.nombre);
-  if (myNotes.length) {
-    html += `<div class="sec"><div class="sec-label blue2">Notas del equipo</div><ul class="items blue2">`;
-    myNotes.forEach(n => {
-      const fecha = new Date(n.fecha).toLocaleDateString('es-AR', {day:'2-digit',month:'2-digit',year:'2-digit'});
-      html += `<li data-nota-id="${n.id}">
-        ${n.autor ? `<b>${n.autor}:</b> ` : ''}${n.texto}
-        <span style="color:#94a3b8;font-size:.7rem;margin-left:6px">${fecha}</span>
-        <button onclick="borrarNota('${n.id}', '${leg.nombre.replace(/'/g,"\'")}')" style="float:right;background:none;border:none;color:#f87171;cursor:pointer;font-size:.72rem;padding:0 4px" title="Eliminar">✕</button>
+
+  // Comisiones del legislador
+  const misComisiones = COMISIONES ? COMISIONES.filter(c => c.integrantes.some(i => i.nombre === leg.nombre)) : [];
+  if (misComisiones.length) {
+    html += `<div class="sec"><div class="sec-label" style="color:#7c3aed;border-color:#ede9fe">Comisiones que integra</div><ul class="items" style="--c:#7c3aed">`;
+    misComisiones.forEach(c => {
+      html += `<li style="cursor:pointer;color:#2563EB" onclick="verComisionDesdeLegislador('${c.nombre.replace(/'/g,"\'")}')">
+        ${c.nombre} ${c.presidente === leg.nombre ? '— <strong>Preside</strong>' : c.vice1 === leg.nombre ? '— Vice 1°' : c.vice2 === leg.nombre ? '— Vice 2°' : ''}
       </li>`;
     });
     html += `</ul></div>`;
+  }
+  const myNotes = notes[leg.nombre]||[];
+  if (myNotes.length) {
+    html+=`<div class="sec"><div class="sec-label blue2">Notas del equipo</div><ul class="items blue2">`;
+    myNotes.forEach(n=>{ html+=`<li>${n.author?`<b>${n.author}:</b> `:''}${n.text} <span style="color:#94a3b8;font-size:.7rem">${n.date}</span></li>`; });
+    html+=`</ul></div>`;
   }
   document.getElementById('panelBody').innerHTML = html;
   document.getElementById('noteText').value='';
@@ -240,35 +242,19 @@ document.getElementById('closeBtn').addEventListener('click', closePanel);
 document.getElementById('overlay').addEventListener('click', closePanel);
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 document.getElementById('notesToggle').addEventListener('click',()=>document.getElementById('notesForm').classList.toggle('open'));
-document.getElementById('saveNote').addEventListener('click', async () => {
-  if (activeIdx < 0) return;
-  const texto = document.getElementById('noteText').value.trim();
-  if (!texto) return;
-  const leg = DATA[activeIdx];
-  const autor = document.getElementById('noteAuthor').value.trim();
-  const btn = document.getElementById('saveNote');
-  btn.textContent = 'Guardando...';
-  btn.disabled = true;
-  const result = await guardarNota(leg.nombre, texto, autor);
-  btn.textContent = 'Guardar nota';
-  btn.disabled = false;
-  if (result) {
-    document.getElementById('noteText').value = '';
-    document.getElementById('noteAuthor').value = '';
-    await openPanel(activeIdx);
-  } else {
-    alert('Error al guardar la nota. Revisá la conexión.');
-  }
+document.getElementById('saveNote').addEventListener('click',()=>{
+  if(activeIdx<0) return;
+  const text=document.getElementById('noteText').value.trim();
+  if(!text) return;
+  const leg=DATA[activeIdx];
+  if(!notes[leg.nombre]) notes[leg.nombre]=[];
+  notes[leg.nombre].push({ text, author:document.getElementById('noteAuthor').value.trim(),
+    date:new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit'}) });
+  try{ localStorage.setItem('caba_notes',JSON.stringify(notes)); } catch(e){}
+  openPanel(activeIdx);
 });
 
 renderGrid();
 
-// ── Borrar nota desde el panel ────────────────────────────────────────────────
-async function borrarNota(id, nombreLeg) {
-  if (!confirm('¿Eliminar esta nota?')) return;
-  const ok = await eliminarNota(id);
-  if (ok) {
-    const idx = DATA.findIndex(l => l.nombre === nombreLeg);
-    if (idx >= 0) await openPanel(idx);
-  }
-}
+// Init comisiones
+if (typeof renderComisiones === 'function') renderComisiones();

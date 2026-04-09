@@ -1,55 +1,54 @@
 # Legislatura CABA — Directorio interno
 
-App web para el equipo asesor de la Legislatura de la Ciudad de Buenos Aires.
+App web para el equipo asesor. Incluye Inicio, Directorio de legisladores y Comisiones.
 
-## Estructura
+## Estructura de archivos
 
 ```
 legislatura-caba/
-├── index.html          ← página principal
+├── index.html              ← página principal (nav + 3 páginas)
 ├── css/
-│   └── styles.css      ← estilos
+│   └── styles.css          ← todos los estilos
 ├── js/
-│   ├── data.js         ← datos de los 60 legisladores
-│   ├── notes.js        ← notas guardadas en localStorage
-│   └── app.js          ← lógica de la app
+│   ├── data.js             ← datos de los 60 legisladores
+│   ├── comisiones.js       ← datos de las 29 comisiones
+│   ├── notes.js            ← conexión Supabase (notas compartidas)
+│   ├── app.js              ← lógica directorio + panel legisladores
+│   └── comisiones_ui.js    ← lógica página comisiones
 └── README.md
 ```
 
-## Notas del equipo
+## Cómo actualizar datos
 
-Las notas se guardan de forma local en el navegador usando `localStorage`.
-Esto significa que:
+### Modificar un legislador
+Abrís `js/data.js` en VS Code, buscás el nombre y editás los campos.
 
-- no requiere backend ni configuración adicional;
-- cada navegador/dispositivo conserva sus propias notas;
-- si se limpian los datos del navegador, las notas se pierden.
+### Modificar una comisión
+Abrís `js/comisiones.js` en VS Code, buscás el nombre de la comisión y editás.
 
-## Flujo de trabajo
-
+### Publicar los cambios
 ```bash
-# Hacer cambios en VS Code, luego:
 git add .
 git commit -m "descripción del cambio"
 git push
-# → Netlify detecta el push y despliega automáticamente en ~15 segundos
 ```
+Netlify detecta el push y actualiza el sitio en ~15 segundos.
 
-## Actualizar datos de un legislador
+## Base de datos Supabase (notas compartidas)
 
-Abrir `js/data.js` y editar el objeto correspondiente. Cada legislador tiene esta estructura:
+Las notas de legisladores y observaciones de comisiones se guardan en Supabase.
+Para agregar la tabla de comisiones ejecutá en Supabase → SQL Editor:
 
-```js
-{
-  "nombre": "Nombre Apellido",
-  "bloque": "Nombre del bloque",
-  "referente": "Nombre del referente",
-  "mandato": "hasta 2027",
-  "resumen": ["línea 1", "línea 2"],
-  "tematicas": ["Tema 1", "Tema 2"],
-  "redes": ["X: @usuario / 10K"],
-  "acuerdos": ["Punto de acuerdo"],
-  "extra": ["Dato extra"],
-  "foto": "https://url-de-la-foto.jpg"
-}
+```sql
+create table notas_comisiones (
+  id uuid default gen_random_uuid() primary key,
+  comision text not null,
+  texto text not null,
+  autor text,
+  fecha timestamp default now()
+);
+alter table notas_comisiones enable row level security;
+create policy "Lectura pública" on notas_comisiones for select using (true);
+create policy "Escritura pública" on notas_comisiones for insert with check (true);
+create policy "Borrado público" on notas_comisiones for delete using (true);
 ```
