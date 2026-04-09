@@ -308,3 +308,5 @@ async function recargarNotasComision(idx) {
       </li>`).join('')}
     </ul>` : '<p class="com-empty">No hay observaciones aún.</p>';
 }
+
+// renderComisiones se llama desde switchPage() en app.js cuando se activa la pestaña
